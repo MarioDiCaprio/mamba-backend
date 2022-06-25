@@ -1,0 +1,8 @@
+mutation {
+    register(request: {username: "Hello", email: "helloworld@gmail.com", password: "World"}) {
+        username
+        email
+        password
+        valid
+    }
+}

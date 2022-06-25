@@ -1,0 +1,7 @@
+mutation {
+    login(request: {username: "Hello", password: "World"}) {
+        username
+        password
+        valid
+    }
+}

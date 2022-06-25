@@ -1,0 +1,11 @@
+mutation {
+    createPost(request: {
+        title: "Hello",
+        text: "Hello, World!",
+        media: null,
+        ownerId: "d127bd3d-8fda-4724-8715-6a52859bbb32", # fake ID (does not exist)
+        type: TEXT
+    }) {
+        title
+    }
+}

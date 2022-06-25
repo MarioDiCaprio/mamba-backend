@@ -1,0 +1,109 @@
+input RegisterRequest {
+    username: String
+    email: String
+    password: String
+}
+
+type RegisterResponse {
+    username: String
+    email: String
+    password: String
+    valid: Boolean!
+}
+
+##########################################################################
+
+input LoginRequest {
+    username: String
+    password: String
+}
+
+type LoginResponse {
+    username: String
+    password: String
+    valid: Boolean!
+}
+
+##########################################################################
+
+enum PostType {
+    TEXT
+    PICTURE
+    VIDEO
+    COMMENT
+    REPOST
+}
+
+type Post {
+    postId: ID!
+    title: String
+    text: String
+    media: String
+    dateCreated: String!
+    dateUpdated: String!
+    owner: User
+    likes: [User!]!
+    reposts: Post
+    repostedBy: [Post!]
+    tags: [Tag!]!
+    type: PostType!
+}
+
+input CreatePostRequest {
+    title: String
+    text: String
+    media: String
+    ownerId: String!
+    repostsId: String
+    tagNames: [String!]
+    type: PostType!
+}
+
+##########################################################################
+
+type User {
+    userId: ID!
+    username: String!
+    email: String!
+    password: String!
+    firstName: String
+    lastName: String
+    description: String
+    profilePicture: String
+    posts: [Post!]!
+    likes: [Post!]!
+    followers: [User!]!
+    following: [User!]!
+}
+
+##########################################################################
+
+type Tag {
+    tagId: ID!
+    name: String!
+    posts: [Post!]!
+}
+
+##########################################################################
+
+type Query {
+    # User
+    userAll: [User!]!
+    userById(userId: ID): User
+    userByUsername(username: String): User
+    # Post
+    postAll(page: Int): [Post!]!
+    postById(postId: ID): Post
+    postsByTitle(title: String): [Post!]!
+}
+
+type Mutation {
+    # Registration
+    register(request: RegisterRequest!): RegisterResponse!
+    # Login
+    login(request: LoginRequest!): LoginResponse!
+    # Post
+    createPost(request: CreatePostRequest): Post!
+    # User
+    userLikePost(userId: ID, postId: ID): User!
+}
