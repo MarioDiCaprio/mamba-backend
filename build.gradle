@@ -8,6 +8,7 @@ apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 
 jar {
+	enabled = false
 	duplicatesStrategy = 'exclude'
 	manifest {
 		attributes(
