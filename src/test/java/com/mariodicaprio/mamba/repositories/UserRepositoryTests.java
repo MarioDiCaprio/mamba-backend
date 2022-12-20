@@ -28,4 +28,18 @@ public class UserRepositoryTests {
         assertThat(user).isEqualTo(tmp);
     }
 
+    @Test
+    void existsByUsername() {
+        // create user first
+        User user = new User();
+        user.setUsername("hello");
+        userRepository.save(user);
+        // test: existing username
+        var exists = userRepository.existsByUsername("hello");
+        assertThat(exists).isTrue();
+        // test: username not existing
+        exists = userRepository.existsByUsername("world");
+        assertThat(exists).isFalse();
+    }
+
 }
