@@ -34,7 +34,7 @@ public class UserControllerTests {
         User user = new User();
         userRepository.save(user);
         // test
-        String url = "/user?userId=" + user.getUserId();
+        String url = "/user/byId?userId=" + user.getUserId();
         mockMvc
                 .perform(get(url))
                 .andExpect(status().isOk())
