@@ -1,35 +1,33 @@
 package com.mariodicaprio.mamba.entities;
 
 
-import javax.persistence.*;
 import lombok.*;
 
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
 
-@Entity(name = "users")
+@Entity
 @Getter @Setter @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class Role {
 
     @Id
     @GeneratedValue
     @EqualsAndHashCode.Include
-    private UUID userId;
+    private UUID roleId;
 
-    @Column(unique = true)
-    @ToString.Include
-    private String username;
+    private String name;
 
-    private String email;
-
-    private String password;
+    @ManyToMany(mappedBy = "roles")
+    private Collection<User> users = new ArrayList<>();
 
     @JoinTable
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+    private Collection<Privilege> privileges = new ArrayList<>();
 
 }

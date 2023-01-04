@@ -18,6 +18,14 @@ spring:
         hbm2ddl:
           auto: create-drop
 
+springdoc:
+  swagger-ui:
+    path: /docs
+
+rsa:
+  public-key: classpath:cert/public.pem
+  private-key: classpath:cert/private.pem
+
 logging:
   level:
     org:

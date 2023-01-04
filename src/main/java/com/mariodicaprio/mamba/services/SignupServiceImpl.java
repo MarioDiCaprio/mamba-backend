@@ -29,7 +29,7 @@ public class SignupServiceImpl implements SignupService {
         log.info("Starting signup with request: " + request);
         var usernameTaken = userRepository.existsByUsername(request.getUsername());
         if (usernameTaken) {
-            log.trace("username " + request.getUsername() + " already in use");
+            log.trace("username \"" + request.getUsername() + "\" already in use");
             throw new InvalidSignupException();
         }
         var encPassword = passwordEncoder.encode(request.getPassword());
@@ -38,7 +38,7 @@ public class SignupServiceImpl implements SignupService {
         user.setEmail(request.getEmail());
         user.setPassword(encPassword);
         userRepository.save(user);
-        log.info("User with username " + request.getUsername() + " signed up successfully");
+        log.info("User with username \"" + request.getUsername() + "\" signed up successfully");
     }
 
 }
