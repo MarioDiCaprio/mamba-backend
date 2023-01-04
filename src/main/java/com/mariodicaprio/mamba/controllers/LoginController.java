@@ -2,6 +2,7 @@ package com.mariodicaprio.mamba.controllers;
 
 
 import com.mariodicaprio.mamba.exceptions.InvalidLoginException;
+import com.mariodicaprio.mamba.responses.TokenResponse;
 import com.mariodicaprio.mamba.services.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,8 +31,9 @@ public class LoginController {
             @ApiResponse(responseCode = "200", description = "Login was successful"),
             @ApiResponse(responseCode = "401", description = "Login was invalid")
     })
-    private String login(Authentication authentication) throws InvalidLoginException {
-        return loginService.login(authentication);
+    private TokenResponse login(Authentication authentication) throws InvalidLoginException {
+        String token = loginService.login(authentication);
+        return new TokenResponse(token);
     }
 
 }
