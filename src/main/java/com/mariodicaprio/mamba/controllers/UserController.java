@@ -2,6 +2,7 @@ package com.mariodicaprio.mamba.controllers;
 
 
 import com.mariodicaprio.mamba.exceptions.UserNotFoundException;
+import com.mariodicaprio.mamba.requests.LikeRequest;
 import com.mariodicaprio.mamba.responses.UserResponse;
 import com.mariodicaprio.mamba.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,10 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -55,6 +53,16 @@ public class UserController {
             String username
     ) throws UserNotFoundException {
         return new UserResponse(userService.findByUsername(username));
+    }
+
+    @PostMapping("/like")
+    @Operation(description = "A request that is sent when a user likes/unlikes a post")
+    private void likePost(
+            @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "The like request")
+            LikeRequest request
+    ) {
+        userService.likePost(request);
     }
 
 }
