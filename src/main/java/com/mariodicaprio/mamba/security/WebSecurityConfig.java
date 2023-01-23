@@ -27,6 +27,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.List;
 
 
@@ -35,7 +37,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final RSAKeyProperties rsaKeys;
+    private final RSAPublicKey publicKey;
+
+    private final RSAPrivateKey privateKey;
 
     private final UserDetailsService userDetailsService;
 
@@ -58,12 +62,12 @@ public class WebSecurityConfig {
 
     @Bean
     JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(rsaKeys.getPublicKey()).build();
+        return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }
 
     @Bean
     JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(rsaKeys.getPublicKey()).privateKey(rsaKeys.getPrivateKey()).build();
+        JWK jwk = new RSAKey.Builder(publicKey).privateKey(privateKey).build();
         JWKSource<SecurityContext> source = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(source);
     }
