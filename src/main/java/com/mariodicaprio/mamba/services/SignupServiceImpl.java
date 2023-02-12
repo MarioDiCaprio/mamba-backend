@@ -26,7 +26,7 @@ public class SignupServiceImpl implements SignupService {
     @Override
     @Transactional
     public void signup(SignupRequest request) throws InvalidSignupException {
-        log.info("Starting signup with request: " + request);
+        log.info("Starting signup with username \"{}\": ", request.getUsername());
         var usernameTaken = userRepository.existsByUsername(request.getUsername());
         if (usernameTaken) {
             log.warn("username \"" + request.getUsername() + "\" already in use");

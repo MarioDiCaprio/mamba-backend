@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
         }
         var user = userRepository.findByUsername(username).orElse(null);
         if (user == null) {
-            log.warn("Username invalid");
+            log.warn("Username invalid: \"{}\"", username);
             return false;
         }
         var valid = user.getPassword().equals(password) || passwordEncoder.matches(password, user.getPassword());
@@ -49,7 +49,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String login(Authentication authentication) throws InvalidLoginException {
-        log.info("Initiating login attempt");
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        log.info("Initiating login attempt for username \"{}\"", username);
         if (isLoginValid(authentication)) {
             log.info("Login successful");
             return tokenService.generateToken(authentication);
