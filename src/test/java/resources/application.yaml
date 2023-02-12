@@ -17,12 +17,3 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         hbm2ddl:
           auto: create-drop
-
-logging:
-  level:
-    org:
-      springframework:
-        transaction: TRACE
-        web:
-          filter:
-            CommonsRequestLoggingFilter: DEBUG
