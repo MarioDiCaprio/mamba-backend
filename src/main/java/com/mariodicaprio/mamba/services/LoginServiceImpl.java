@@ -31,19 +31,19 @@ public class LoginServiceImpl implements LoginService {
 
         log.info("Checking validity of login credentials");
         if (username == null || password == null) {
-            log.trace("Username or password is null");
+            log.warn("Username or password is null");
             return false;
         }
         var user = userRepository.findByUsername(username).orElse(null);
         if (user == null) {
-            log.trace("Username invalid");
+            log.warn("Username invalid");
             return false;
         }
         var valid = user.getPassword().equals(password) || passwordEncoder.matches(password, user.getPassword());
         if (valid)
             log.info("Login credentials are valid");
         else
-            log.trace("Login credentials are invalid");
+            log.warn("Login credentials are invalid");
         return valid;
     }
 

@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         log.info("Fetching user details for username \"" + username + "\"");
         var user = userRepository.findByUsername(username).orElse(null);
         if (user == null) {
-            log.trace("User with username \"" + username + "\" not found");
+            log.warn("User with username \"" + username + "\" not found");
             throw new UsernameNotFoundException(username);
         }
         log.info("User with username \"" + username + "\" found successfully");

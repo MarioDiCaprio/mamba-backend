@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         log.info("fetching user by ID: " + userId);
         var user = userRepository.findById(userId).orElse(null);
         if (user == null) {
-            log.trace("user with ID " + userId + " not found");
+            log.warn("user with ID " + userId + " not found");
             throw new UserNotFoundException();
         }
         log.info("user with ID " + userId + " found");
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         log.info("fetching user by username: \"" + username + "\"");
         var user = userRepository.findByUsername(username).orElse(null);
         if (user == null) {
-            log.trace("user with username \"" + username + "\" not found");
+            log.warn("user with username \"" + username + "\" not found");
             throw new UserNotFoundException();
         }
         log.info("user with username \"" + username + "\" found");
