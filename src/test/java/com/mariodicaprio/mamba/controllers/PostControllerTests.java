@@ -88,7 +88,7 @@ public class PostControllerTests {
                         new byte[] {1, 2, 3, 4, 5},
                         "media/testingType"
                 ),
-                user.getUserId()
+                user.getUsername()
         );
         var json = objectMapper.writeValueAsString(request);
         // send request

@@ -3,8 +3,6 @@ package com.mariodicaprio.mamba.requests;
 
 import lombok.Data;
 
-import java.util.UUID;
-
 
 @Data
 public class PostCreationRequest {
@@ -15,7 +13,7 @@ public class PostCreationRequest {
 
     private final PostCreationRequestMedia media;
 
-    private final UUID ownerId;
+    private final String username;
 
 
     @Data

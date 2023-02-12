@@ -40,7 +40,13 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public void createPost(PostCreationRequest request) throws UserNotFoundException {
         log.info("Initiating post creation");
-        User owner = (request.getOwnerId() == null)? null : userService.findById(request.getOwnerId());
+
+        if (request.getUsername() == null) {
+            log.error("No username found for post creation request (username=null)");
+            throw new UserNotFoundException();
+        }
+
+        User owner = userService.findByUsername(request.getUsername());
 
         Media media = null;
         if (request.getMedia() != null) {
